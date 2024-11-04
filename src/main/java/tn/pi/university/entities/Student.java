@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table
+@Table(name = "student")
 
 public class Student {
     // Getters and Setters

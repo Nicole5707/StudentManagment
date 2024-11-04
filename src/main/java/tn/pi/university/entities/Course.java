@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table
+@Table(name = "course")
 
 public class Course {
     // Getters and Setters

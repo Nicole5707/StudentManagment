@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table
+@Table(name = "subject")
 public class Subject {
     // Getters and Setters
     @Id

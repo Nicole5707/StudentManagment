@@ -12,7 +12,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table
+@Table(name = "timetable")
 public class Timetable {
     // Getters and Setters
     @Id
