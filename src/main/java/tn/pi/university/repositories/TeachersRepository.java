@@ -1,8 +1,9 @@
 package tn.pi.university.repositories;
-import tn.pi.university.entities.Teachers;
+
+import tn.pi.university.entities.Teacher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TeachersRepository extends JpaRepository<Teachers,Long> {
+public interface TeachersRepository extends JpaRepository<Teacher, Long> {
 }

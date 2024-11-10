@@ -2,15 +2,14 @@ package tn.pi.university.entities;
 
 import lombok.*;
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Student {
+public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,7 +20,6 @@ public class Student {
     private String phoneNumber;
     private String email;
 
-    @ManyToOne
-    @JoinColumn(name = "class_id", nullable = false)
-    private Class classEntity;  // The class to which the student belongs
+    @OneToMany(mappedBy = "teacher")
+    private List<Subject> subjects;  // Subjects taught by this teacher
 }

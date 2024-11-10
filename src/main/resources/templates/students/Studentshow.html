@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/javascript" th:href="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <title>Student List</title>
+    <style>
+        body {
+            height: 100vh;
+        }
+
+        * {
+            margin: 0;
+        }
+
+        .bg-img {
+            background: url("https://firebasestorage.googleapis.com/v0/b/fir-flutter-99d26.appspot.com/o/backg.png?alt=media&token=bc9d8268-5dd5-4513-9374-70d971c7c65f");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .centerss {
+            border: 5px solid #8ca7f1;
+            border-radius: 20px;
+            padding: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            padding: 2rem;
+        }
+
+    </style>
+</head>
+<body class="bg-img">
+<nav class="navbar font-weight-bold navbar-expand-lg navbar-light bg-light container">
+    <a class="navbar-brand container font-weight-bold" href="#">Student List of School</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <a class="h4 mr-3 btn btn-secondary btn-sm" th:href="@{'/'}">BACK</a>
+    </div>
+</nav>
+
+<div th:if="${session.msg}">
+    <div class="alert alert-primary" role="alert" th:text="${session.msg}"></div>
+    <th:block th:text="${#session.removeAttribute('msg')}"></th:block>
+</div>
+
+<h2>List of All Students</h2>
+<div th:each="student : ${students}" class="centerss">
+    <ul class="list-group">
+        <li class="list-group-item" th:text="'ID: ' + ${student.id} + ' Name: ' + ${student.name}"></li>
+        <li class="list-group-item" th:text="'Age: ' + ${student.age}"></li>
+        <li class="list-group-item" th:text="'Grade: ' + ${student.grade}"></li>
+        <li class="list-group-item" th:text="'Class: ' + ${student.clz}"></li>
+        <li class="list-group-item" th:text="'Address: ' + ${student.address}"></li>
+        <li class="list-group-item" th:text="'Telephone: ' + ${student.tp}"></li>
+        <li class="list-group-item" th:text="'Email: ' + ${student.email}"></li>
+    </ul>
+</div>
+
+<a class="btn btn-primary" th:href="@{addStudent}">Add New Student</a>
+
+</body>
+</html>
