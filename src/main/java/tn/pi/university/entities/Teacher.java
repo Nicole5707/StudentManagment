@@ -20,6 +20,11 @@ public class Teacher {
     private String phoneNumber;
     private String email;
 
-    @OneToMany(mappedBy = "teacher")
-    private List<Subject> subjects;  // Subjects taught by this teacher
+    @ManyToMany
+    @JoinTable(
+            name = "teacher_subject",
+            joinColumns = @JoinColumn(name = "teacher_id"),
+            inverseJoinColumns = @JoinColumn(name = "subject_id")
+    )
+    private List<Subject> subjects;
 }

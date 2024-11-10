@@ -12,26 +12,26 @@ import java.util.Optional;
 public class TeachersService {
 
     @Autowired
-    private TeachersRepository teacherRepo;
+    private TeachersRepository teacherRepository;
 
-    public Teacher addTeacher(Teacher teacher) {
-        return teacherRepo.save(teacher);
+    public void addTeacher(Teacher teacher) {
+        teacherRepository.save(teacher);
     }
 
-    public List<Teacher> getTeachers() {
-        return teacherRepo.findAll();
+    public List<Teacher> getAllTeachers() {
+        return teacherRepository.findAll();
     }
 
     public Teacher getTeacherById(long id) {
-        Optional<Teacher> teacher = teacherRepo.findById(id);
+        Optional<Teacher> teacher = teacherRepository.findById(id);
         return teacher.orElse(null);
     }
 
     public void updateTeacher(Teacher teacher) {
-        teacherRepo.save(teacher);
+        teacherRepository.save(teacher);
     }
 
     public void deleteTeacherById(Long id) {
-        teacherRepo.deleteById(id);
+        teacherRepository.deleteById(id);
     }
 }

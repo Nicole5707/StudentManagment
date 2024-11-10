@@ -23,5 +23,5 @@ public class Student {
 
     @ManyToOne
     @JoinColumn(name = "class_id", nullable = false)
-    private Class classEntity;  // The class to which the student belongs
+    private Class classEntity;
 }

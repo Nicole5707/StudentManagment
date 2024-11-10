@@ -13,8 +13,8 @@ public class SubjectsService {
     @Autowired
     private SubjectsRepository subjectsRepo;
 
-    public Subject addSubject(Subject subject) {
-        return subjectsRepo.save(subject);
+    public void addSubject(Subject subject) {
+        subjectsRepo.save(subject);
     }
 
     public List<Subject> getAllSubjects() {
