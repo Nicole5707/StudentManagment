@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <title>Edit Class</title>
+</head>
+<body class="bg-img">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">School Management</a>
+        <a class="btn btn-light" th:href="@{/Classshow}">Back to Classes</a>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4>Edit Class</h4>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/Classshow/edit/UpdateClass}" th:object="${classEntity}" method="post">
+                <input type="hidden" th:field="*{id}">
+
+                <div class="form-group">
+                    <label>Class Name</label>
+                    <input type="text" class="form-control" th:field="*{name}" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Grade</label>
+                    <select class="form-control" th:field="*{grade}" required>
+                        <option th:each="grade : ${gradesList}"
+                                th:value="${grade.id}"
+                                th:text="${grade.year}"
+                                th:selected="${grade.id == classEntity.grade.id}"></option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Update Class</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

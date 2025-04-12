@@ -47,10 +47,9 @@ public class StudentsController {
     }
 
     // List All Students (Uncommented)
-    @GetMapping("/Studentship")
     public String showAllStudents(Model model) {
         model.addAttribute("students", studentService.getAllStudents());
-        return "Studentship";
+        return "students/Studentshow"; // Add subdirectory
     }
 
     // Edit Student
