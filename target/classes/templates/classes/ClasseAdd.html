@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <title>Add Class</title>
+</head>
+<body>
+
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">Add Class For School</a>
+    <a class="btn btn-secondary btn-sm" th:href="@{'/'}">BACK</a>
+</nav>
+
+<!-- Display Success or Error Message -->
+<div th:if="${session.msg}">
+    <div class="alert alert-primary" role="alert" th:text="${session.msg}"></div>
+    <th:block th:text="${#session.removeAttribute('msg')}"></th:block>
+</div>
+
+<!-- Class Form -->
+<form method="post" th:action="@{addClass}" th:object="${newClass}">
+    <!-- Class Name -->
+    <div class="form-group">
+        <label for="name">Class Name</label>
+        <input type="text" class="form-control" id="name" th:field="*{name}" required minlength="2"/>
+        <div th:if="${#fields.hasErrors('name')}" class="text-danger">
+            <span th:errors="*{name}"></span>
+        </div>
+    </div>
+
+    <!-- Grade Selection -->
+    <div class="form-group">
+        <label for="grade">Grade</label>
+        <select class="form-control" id="grade" th:field="*{grade}" required>
+            <option value="" disabled selected>Select Grade</option>
+            <option th:each="grade : ${gradesList}" th:value="${grade.id}" th:text="${grade.name}"></option>
+        </select>
+        <div th:if="${#fields.hasErrors('grade')}" class="text-danger">
+            <span th:errors="*{grade}"></span>
+        </div>
+    </div>
+
+    <!-- Submit and Reset Buttons -->
+    <button type="submit" class="btn btn-primary">Add Class</button>
+    <a href="Class" class="btn btn-secondary">Reset</a>
+</form>
+
+</body>
+</html>

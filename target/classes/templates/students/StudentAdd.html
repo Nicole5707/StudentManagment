@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <title>Add Student</title>
+</head>
+<body>
+
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">Add Student For School</a>
+    <a class="btn btn-secondary btn-sm" th:href="@{'/'}">BACK</a>
+</nav>
+
+<!-- Display Success or Error Message -->
+<div th:if="${session.msg}">
+    <div class="alert alert-primary" role="alert" th:text="${session.msg}"></div>
+    <th:block th:text="${#session.removeAttribute('msg')}"></th:block>
+</div>
+
+<!-- Student Form -->
+<form th:action="@{addStudent}" method="post" th:object="${newStudent}">
+    <!-- Name -->
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" th:field="*{name}" required minlength="2"/>
+        <div th:if="${#fields.hasErrors('name')}" class="text-danger">
+            <span th:errors="*{name}"></span>
+        </div>
+    </div>
+
+    <!-- Age -->
+    <div class="form-group">
+        <label for="age">Age</label>
+        <input type="number" class="form-control" id="age" th:field="*{age}" required/>
+        <div th:if="${#fields.hasErrors('age')}" class="text-danger">
+            <span th:errors="*{age}"></span>
+        </div>
+    </div>
+
+    <!-- Grade
+    <div class="form-group">
+        <label for="grade">Grade</label>
+        <input type="text" class="form-control" id="grade" th:field="*{grade}" required/>
+        <div th:if="${#fields.hasErrors('grade')}" class="text-danger">
+            <span th:errors="*{grade}"></span>
+        </div>
+    </div> -->
+
+    <!-- Class Selection -->
+    <div class="form-group">
+        <label for="classEntity">Class</label>
+        <select class="form-control" id="classEntity" th:field="*{classEntity}" required>
+            <option value="" disabled selected>Select Class</option>
+            <option th:each="cl : ${classes}" th:value="${cl.id}" th:text="${cl.name}"></option>
+        </select>
+        <div th:if="${#fields.hasErrors('classEntity')}" class="text-danger">
+            <span th:errors="*{classEntity}"></span>
+        </div>
+    </div>
+
+    <!-- Address -->
+    <div class="form-group">
+        <label for="address">Address</label>
+        <input type="text" class="form-control" id="address" th:field="*{address}" required minlength="5"/>
+        <div th:if="${#fields.hasErrors('address')}" class="text-danger">
+            <span th:errors="*{address}"></span>
+        </div>
+    </div>
+
+    <!-- Telephone -->
+    <div class="form-group">
+        <label for="phoneNumber">Telephone</label>
+        <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}" required minlength="10"/>
+        <div th:if="${#fields.hasErrors('phoneNumber')}" class="text-danger">
+            <span th:errors="*{phoneNumber}"></span>
+        </div>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" th:field="*{email}" required/>
+        <div th:if="${#fields.hasErrors('email')}" class="text-danger">
+            <span th:errors="*{email}"></span>
+        </div>
+    </div>
+
+    <!-- Submit and Reset Buttons -->
+    <button type="submit" class="btn btn-primary">Add Student</button>
+    <a href="Teachers" class="btn btn-primary">Reset</a>
+</form>
+
+</body>
+</html>

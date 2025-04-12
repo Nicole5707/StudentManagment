@@ -1,7 +1,7 @@
 package tn.pi.university.controllers;
 
+import org.springframework.validation.BindingResult;
 import tn.pi.university.entities.Class;
-import tn.pi.university.entities.Grade;
 import tn.pi.university.services.ClassService;
 import tn.pi.university.services.GradeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,20 +25,26 @@ public class ClassController {
      */
     @GetMapping("/Class")
     public String showClassForm(Model model) {
-        model.addAttribute("newClass", new Class());
+        model.addAttribute("newClass", new Class()); // Ensures newClass is available in the view
         model.addAttribute("gradesList", gradeService.getAllGrades());
-        return "ClassAdd";
+        return "classes/ClasseAdd";
     }
+
 
     /**
      * Adds a new class.
      */
     @PostMapping("/addClass")
-    public String addClass(@ModelAttribute Class classEntity, HttpSession session) {
+    public String addClass(@ModelAttribute("newClass") Class classEntity, BindingResult result, Model model, HttpSession session) {
+        if (result.hasErrors()) {
+            model.addAttribute("gradesList", gradeService.getAllGrades());
+            return "classes/ClasseAdd"; // return to form if there are validation errors
+        }
         classService.addClass(classEntity);
         session.setAttribute("msg", "Class added successfully.");
         return "redirect:/Class";
     }
+
 
     /**
      * Displays all classes.
@@ -46,7 +52,7 @@ public class ClassController {
     @GetMapping("/Classshow")
     public String showAllClasses(Model model) {
         model.addAttribute("classes", classService.getAllClasses());
-        return "Classshow";
+        return "classes/Classeshow";
     }
 
     /**
@@ -57,18 +63,22 @@ public class ClassController {
         Class classEntity = classService.getClassById(id);
         model.addAttribute("classEntity", classEntity);
         model.addAttribute("gradesList", gradeService.getAllGrades());
-        return "ClassEdit";
+        return "classes/ClasseEdit";
     }
 
     /**
      * Updates a class.
      */
     @PostMapping("/Classshow/edit/UpdateClass")
-    public String updateClass(@ModelAttribute Class classEntity, HttpSession session) {
+    public String updateClass(@ModelAttribute("classEntity") Class classEntity, BindingResult result, HttpSession session) {
+        if (result.hasErrors()) {
+            return "classes/ClasseEdit"; // return to edit form if there are validation errors
+        }
         classService.updateClass(classEntity);
         session.setAttribute("msg", "Class updated successfully.");
-        return "redirect:/Classshow";
+        return "redirect:/classes/Classeshow";
     }
+
 
     /**
      * Deletes a class.
@@ -77,6 +87,6 @@ public class ClassController {
     public String deleteClass(@PathVariable("id") Long id, HttpSession session) {
         classService.deleteClassById(id);
         session.setAttribute("msg", "Class deleted successfully.");
-        return "redirect:/Classshow";
+        return "redirect:/classes/Classeshow";
     }
 }
