@@ -23,14 +23,17 @@ public class StudentService {
     }
 
     public Student getStudentById(long id) {
-        Optional<Student> student = studentRepository.findById(id);
-        return student.orElse(null);
+        return studentRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid student ID: " + id));
     }
 
     public void updateStudent(Student student) {
-        // Assuming you want to update the student using the save method (which works for both save and update in Spring Data JPA)
+    if (studentRepository.existsById(student.getId())) {
         studentRepository.save(student);
+    } else {
+        throw new IllegalArgumentException("Student with ID " + student.getId() + " not found.");
     }
+}
 
     public void deleteStudentById(Long id) {
         studentRepository.deleteById(id);

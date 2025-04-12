@@ -2,6 +2,8 @@ package tn.pi.university.entities;
 
 import lombok.*;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
@@ -12,14 +14,18 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;  // e.g., "Math", "Science"
+    @NotBlank(message = "Subject name is required")
+    private String name;
+
     private String chapters;
 
+    @NotNull(message = "Class must be assigned")
     @ManyToOne
     @JoinColumn(name = "class_id", nullable = false)
-    private Class classEntity;  // The class studying this subject
+    private Class classEntity;
 
+    @NotNull(message = "Teacher must be assigned")
     @ManyToOne
     @JoinColumn(name = "teacher_id", nullable = false)
-    private Teacher teacher;  // Teacher assigned to this subject
+    private Teacher teacher;
 }
